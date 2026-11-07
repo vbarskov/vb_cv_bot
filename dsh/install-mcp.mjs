@@ -49,13 +49,20 @@ function blockText() {
   ].join('\n');
 }
 
-/** Вставить блок в конец патча, заменив прежний такой же блок. */
+/** Убрать строку пустого списка: иначе наш список окажется вторым YAML-документом. */
+function withoutEmptyList(text) {
+  return text.replace(/^[ \t]*\[\][ \t]*\r?\n?/gm, '');
+}
+
+/** Вставить блок в конец патча, заменив прежний такой же блок или пустой список. */
 function applyBlock(text, block) {
   const start = text.indexOf(START);
   const end = text.indexOf(END);
-  if (start >= 0 && end > start) return text.slice(0, start) + block + text.slice(end + END.length);
-  if (text.trim() === '[]') return block + '\n';
-  return (text.trimEnd() ? text.trimEnd() + '\n' : '') + block + '\n';
+  if (start >= 0 && end > start) {
+    return withoutEmptyList(text.slice(0, start)) + block + withoutEmptyList(text.slice(end + END.length));
+  }
+  const cleaned = withoutEmptyList(text);
+  return (cleaned.trimEnd() ? cleaned.trimEnd() + '\n' : '') + block + '\n';
 }
 
 const args = process.argv.slice(2);

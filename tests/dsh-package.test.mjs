@@ -124,19 +124,31 @@ test('install-mcp.mjs идемпотентно добавляет MCP-строк
   }
 });
 
-test('install-mcp.mjs заменяет пустой список профиля', async () => {
+test('install-mcp.mjs заменяет пустой список в шаблоне профиля', async () => {
   const home = await mkdtemp(path.join(tmpdir(), 'dsh-home-'));
   try {
     const profile = path.join(home, 'profiles', 'desktop');
     await mkdir(profile, { recursive: true });
     const target = path.join(profile, 'cordis.patch.yml');
-    await writeFile(target, '[]\n');
-    const result = spawnSync(process.execPath, [path.join(root, 'dsh/install-mcp.mjs')], {
+    const template = [
+      '# Your patch layer for this dsh profile, applied after every bundle layer:',
+      '# a top-level YAML array of loader patch entries.',
+      '[]',
+      '',
+    ].join('\n');
+    await writeFile(target, template);
+    const run = () => spawnSync(process.execPath, [path.join(root, 'dsh/install-mcp.mjs')], {
       env: { ...process.env, DSH_HOME: home },
       encoding: 'utf8',
     });
-    assert.equal(result.status, 0);
-    assert.match(await readFile(target, 'utf8'), /^- insert:$/m);
+    assert.equal(run().status, 0);
+    assert.equal(run().status, 0);
+
+    const text = await readFile(target, 'utf8');
+    assert.match(text, /^# a top-level YAML array of loader patch entries\.$/m);
+    assert.match(text, /^- insert:$/m);
+    assert.equal(text.split('# vb-cv-bot: начало').length - 1, 1);
+    assert.doesNotMatch(text, /^\[\]$/m, 'пустой список должен быть заменён, иначе YAML не разберётся');
   } finally {
     await rm(home, { recursive: true, force: true });
   }
