@@ -1,0 +1,4 @@
+interface:
+  display_name: "Запуск CV Bot"
+  short_description: "Подготовка поиска, проверки и отправки откликов"
+  default_prompt: "Используй $cv-run, чтобы подготовить проверяемый план поиска вакансий."

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "vb-cv-bot",
+  "version": "0.1.0",
+  "description": "Локальный помощник для cv_bot: очередь вакансий hh.ru, скоринг, письма и подготовка запусков.",
+  "author": { "name": "VB" },
+  "keywords": ["cv", "career", "hh", "vacancies", "local"],
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "onboardingSkill": "./skills/cv-setup/SKILL.md",
+      "interface": {
+        "displayName": "VB CV Bot",
+        "shortDescription": "Вакансии hh.ru, скоринг и сопроводительные письма",
+        "longDescription": "Подключает существующий локальный cv_bot: показывает очередь и статистику, оценивает вакансии, готовит письма и команды браузерных запусков. Личные данные и сессия остаются в исходном проекте.",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "defaultPrompt": ["Подключи мой локальный cv_bot", "Покажи лучшие вакансии из очереди", "Подготовь сопроводительное письмо для вакансии"],
+        "brandColor": "#286A68"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "vb-cv-bot",
+  "version": "0.1.0",
+  "description": "Локальный помощник для cv_bot: очередь вакансий hh.ru, скоринг, письма и подготовка запусков.",
+  "author": { "name": "VB" },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "requires_local_executor": true,
+  "interface": {
+    "displayName": "VB CV Bot",
+    "shortDescription": "Вакансии hh.ru, скоринг и сопроводительные письма",
+    "longDescription": "Адаптер к существующему локальному cv_bot: очередь, статистика, письма и подготовка команд браузерных запусков.",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["Подключи мой локальный cv_bot", "Покажи лучшие вакансии из очереди", "Подготовь сопроводительное письмо для вакансии"],
+    "brandColor": "#286A68"
+  },
+  "extensions": {
+    "com.openai": { "onboardingSkill": "./skills/cv-setup/SKILL.md" }
+  }
+}

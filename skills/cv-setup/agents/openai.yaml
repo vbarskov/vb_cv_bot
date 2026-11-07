@@ -1,0 +1,4 @@
+interface:
+  display_name: "Подключить CV Bot"
+  short_description: "Подключение проекта cv_bot и проверка готовности"
+  default_prompt: "Используй $cv-setup, чтобы подключить мой существующий локальный cv_bot."
