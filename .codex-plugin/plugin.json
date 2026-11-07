@@ -13,7 +13,9 @@
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "defaultPrompt": ["Подключи мой локальный cv_bot", "Покажи лучшие вакансии из очереди", "Подготовь сопроводительное письмо для вакансии"],
-    "brandColor": "#286A68"
+    "brandColor": "#E21E2B",
+    "composerIcon": "./assets/vb-cv-bot.png",
+    "logo": "./assets/vb-cv-bot.png"
   },
   "extensions": {
     "com.openai": { "onboardingSkill": "./skills/cv-setup/SKILL.md" }
